@@ -49,54 +49,152 @@ let stock = {
     topping: ['chocolate', 'peanuts']
 }
 
-//--promises
+let isOpen = false;
 
-let isOpen = true;
-
-let order = (time, work) => {
-
-    return new Promise ((resolve, reject) => {
+function time(ms) {
+    return new Promise((resolve, reject) => {
         if (isOpen) {
-
             setTimeout(() => {
-                resolve(work());
-            }, time);
-
+                resolve();
+            }, ms);
         } else {
-            reject(console.log('shop is closed'));
+            reject(console.log('shop is closed'))
         }
     })
 }
 
-order(2000, () => console.log(`${stock.fruit[0]} selected`))
+async function kitchen() {
+    // console.log('taking order');
+    // await time(3000);
+    // await time(2000);
+    // console.log('kitchen process finished');
+    try {
+        console.log('we got the order');
+        await time(3000);
+        console.log(`${stock.fruit[0]} selected`);
+        await time(1000);
+        console.log('prod has started');
+        await time(2000);
+        console.log('fruit chopped');
+        await time(3000);
+        console.log(`mixing ${stock.liquid[0]} and ${stock.liquid[1]} `);
+        await time(2000);
+        console.log(`adding ${stock.holder[0]} holder`);
+        await time(2000);
+        console.log(`adding ${stock.topping[0]}`);
+        await time(1000);
+        console.log('serving ice cream');
+    }
+    catch(err) {
+        console.log('we have an error in async');
+    }
+    finally {
+        setTimeout(() => {
+            console.log('day ended');
+        }, 2000);
+    }
+}
 
-.then(() => {
-    return  order(0000, () => console.log('prod has started'));
-})
-.then(() => {
-    return  order(2000, () => console.log('fruit chopped'));
-})
-.then(() => {
-    return  order(1000, () => console.log(`mixing ${stock.liquid[0]} and ${stock.liquid[1]} `));
-})
-.then(() => {
-    return  order(1000, () => console.log('machine activated'));
-})
-.then(() => {
-    return  order(2000, () => console.log(`adding ${stock.holder[0]} holder`));
-})
-.then(() => {
-    return  order(3000, () => console.log(`adding ${stock.topping[0]}`));
-})
-.then(() => {
-    return  order(1000, () => console.log('serving ice cream'));
-})
-.catch(() => {
-    console.log('customer left')
-})
-.finally(() => {
-    return  order(3000, () => console.log('closing shop'));
-})
+kitchen()
+// .then(() => {
+//     setTimeout(() => {
+//         console.log('I am already at home!');
+//     }, 2000);
+// })
+// .catch(() => {
+//     console.log('meh');
+// })
+
+console.log('--we are cleaning the dishes in the meantime--');
+console.log('--we are cleaning in the meantime--');
+//--promises with async await
+
+// let toppingChoice = () => {
+//     return new Promise ((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve(console.log('Which topping?'));
+//         }, 3000);
+//     })
+// }
+
+// async function kitchen() {
+//     console.log('a');
+//     console.log('b');
+//     console.log('c');
+//     await toppingChoice();
+//     console.log('d');
+//     console.log('e');
+// }
+
+// kitchen();
+
+// console.log('cleaning tables');
+// console.log('doing dishes');
+
+// async function order() {
+//     try {
+//         await abc;
+//     }
+//     catch(err) {
+//         console.log('abc doesn\'t exist', err);
+//     }
+//     finally {
+//         console.log('always running this');
+//     }
+
+// }
+
+// order()
+// .then(() => {
+//     console.log('in the then');
+// })
+
+//--promises
+
+// let order = (time, work) => {
+
+//     return new Promise ((resolve, reject) => {
+//         if (isOpen) {
+
+//             setTimeout(() => {
+//                 resolve(work());
+//             }, time);
+
+//         } else {
+//             reject(console.log('shop is closed'));
+//         }
+//     })
+// }
+
+// order(2000, () => console.log(`${stock.fruit[0]} selected`))
+
+// .then(() => {
+//     return  order(0000, () => console.log('prod has started'));
+// })
+// .then(() => {
+//     return  order(2000, () => console.log('fruit chopped'));
+// })
+// .then(() => {
+//     return  order(1000, () => console.log(`mixing ${stock.liquid[0]} and ${stock.liquid[1]} `));
+// })
+// .then(() => {
+//     return  order(1000, () => console.log('machine activated'));
+// })
+// .then(() => {
+//     return  order(2000, () => console.log(`adding ${stock.holder[0]} holder`));
+// })
+// .then(() => {
+//     return  order(3000, () => console.log(`adding ${stock.topping[0]}`));
+// })
+// .then(() => {
+//     return  order(1000, () => console.log('serving ice cream'));
+// })
+// .catch(() => {
+//     console.log('customer left')
+// })
+// .finally(() => {
+//     return  order(3000, () => console.log('closing shop'));
+// })
 
 
 //--callback hell
