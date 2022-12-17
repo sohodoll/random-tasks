@@ -1,4 +1,5 @@
 import Header from './views/components/header';
+import ErrorPage, { ErrorTypes } from './views/error';
 import MainPage from './views/main';
 import SettingsPage from './views/settings';
 import StatsPage from './views/stats';
@@ -19,7 +20,7 @@ class App {
     static renderNewPage(pageId: string) {
         const currentPageHTML = document.querySelector(`#${App.defaultPageId}`);
         if (currentPageHTML) {
-            currentPageHTML.remove;
+            currentPageHTML.remove();
         }
         let page: Page | null = null;
         if (pageId === PageIds.MainPage) {
@@ -28,6 +29,8 @@ class App {
             page = new SettingsPage(pageId);
         } else if (pageId === PageIds.StatsPage) {
             page = new StatsPage(pageId);
+        } else {
+            page = new ErrorPage(pageId, ErrorTypes.Error_404);
         }
         if (page) {
             const pageHTML = page.render();
